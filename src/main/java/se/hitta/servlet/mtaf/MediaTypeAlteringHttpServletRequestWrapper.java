@@ -21,8 +21,6 @@ import java.util.Hashtable;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 
-import org.apache.commons.lang3.StringUtils;
-
 final class MediaTypeAlteringHttpServletRequestWrapper extends HttpServletRequestWrapper
 {
     private final static String ACCEPT_HEADER = "accept";
@@ -39,7 +37,7 @@ final class MediaTypeAlteringHttpServletRequestWrapper extends HttpServletReques
     @Override
     public Enumeration<String> getHeaders(String name)
     {
-        if(StringUtils.equalsIgnoreCase(ACCEPT_HEADER, name))
+        if(ACCEPT_HEADER.equalsIgnoreCase(name))
         {
             Hashtable<String, String> fakeAcceptHeader = new Hashtable<String, String>();
             fakeAcceptHeader.put(this.acceptHeader, ACCEPT_HEADER_IGNORED);
@@ -52,7 +50,7 @@ final class MediaTypeAlteringHttpServletRequestWrapper extends HttpServletReques
     @Override
     public String getHeader(String name)
     {
-        if(StringUtils.equalsIgnoreCase(ACCEPT_HEADER, name))
+        if(ACCEPT_HEADER.equalsIgnoreCase(name))
         {
             return this.acceptHeader;
         }
