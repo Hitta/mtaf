@@ -66,12 +66,5 @@
             <type>jar</type>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>se.hitta</groupId>
-            <artifactId>pom-test</artifactId>
-            <version>3.0.12</version>
-            <type>pom</type>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
 </project>
