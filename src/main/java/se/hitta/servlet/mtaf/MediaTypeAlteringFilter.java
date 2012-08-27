@@ -33,10 +33,10 @@ import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response.Status;
 
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.common.base.Joiner;
 import com.google.common.base.Optional;
 import com.google.inject.Singleton;
 import com.sun.jersey.core.header.AcceptableMediaType;
@@ -69,8 +69,6 @@ public final class MediaTypeAlteringFilter implements Filter
         HttpServletRequest httpRequest = (HttpServletRequest)servletRequest;
         List<AcceptableMediaType> acceptables = acceptableMediaTypes(httpRequest);
         
-        StringUtils.join(acceptables, ",");
-        
         Optional<String> callback = Optional.fromNullable(httpRequest.getParameter(CALLBACK_PARAMETER_NAME));
 
         if(jsonpAccepted(httpRequest, acceptables))
@@ -92,7 +90,7 @@ public final class MediaTypeAlteringFilter implements Filter
                     if(acceptables.size() > 1)
                     {
                         acceptables.remove(preferredMediaType);
-                        String accept = StringUtils.join(acceptables, ",");
+                        String accept = Joiner.on(',').join(acceptables);
                         httpRequest = new MediaTypeAlteringHttpServletRequestWrapper(httpRequest, accept);
                     }
                     else
